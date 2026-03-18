@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #303133;
+  background-color: #f5f7fa;
+}
+
+/* Sidebar theme variables */
+:root[data-sidebar-theme='dark'] {
+  --pm-sidebar-bg: #001529;
+  --pm-sidebar-text: #bfcbd9;
+}
+
+:root[data-sidebar-theme='light'] {
+  --pm-sidebar-bg: #ffffff;
+  --pm-sidebar-text: #303133;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-container {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
