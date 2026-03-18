@@ -1,6 +1,7 @@
 import router, { asyncRoutes } from './index'
 import { useUserStore } from '@/pinia/userStore'
-import { getUserInfo } from '@/api/auth'
+import { getUserInfo, getAuthRoutes } from '@/api/auth'
+import { transformBackendRoutes } from './routeLoader'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -31,9 +32,18 @@ router.beforeEach(async (to, from, next) => {
         } catch {
           // 拉取失败仍放行静态路由，避免白屏
         }
-        let roles = userStore.roles?.length ? userStore.roles : resolveRolesForMenu(userStore.userInfo)
-        const accessRoutes = filterAsyncRoutesByRoles(asyncRoutes, roles)
-        accessRoutes.forEach((r) => router.addRoute(r))
+        // 动态菜单：优先从后端下发路由
+        try {
+          const res = await getAuthRoutes()
+          const backendAsync = res?.data?.asyncRoutes || []
+          const toAdd = transformBackendRoutes(backendAsync)
+          toAdd.forEach((r) => router.addRoute(r))
+        } catch {
+          // 后端动态路由不可用时，回退到本地静态 asyncRoutes + 角色过滤
+          const roles = userStore.roles?.length ? userStore.roles : resolveRolesForMenu(userStore.userInfo)
+          const accessRoutes = filterAsyncRoutesByRoles(asyncRoutes, roles)
+          accessRoutes.forEach((r) => router.addRoute(r))
+        }
         routesAdded = true
         next({ ...to, replace: true })
       } else {

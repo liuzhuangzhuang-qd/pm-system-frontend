@@ -35,3 +35,11 @@ export function getUserInfo() {
   })
 }
 
+// 动态路由/菜单下发：GET /api/auth/routes
+export function getAuthRoutes() {
+  return request({
+    url: '/auth/routes',
+    method: 'get'
+  })
+}
+

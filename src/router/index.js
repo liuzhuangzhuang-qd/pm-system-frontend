@@ -103,7 +103,7 @@ export const asyncRoutes = [
     children: [
       { path: 'theme', name: 'ThemeSettings', component: () => import('@/views/system/ThemeSettings.vue'), meta: { title: '系统主题' } },
       { path: 'dict', name: 'DictList', component: () => import('@/views/system/DictList.vue'), meta: { title: '数据字典' } },
-      { path: 'config', name: 'ConfigList', component: () => import('@/views/system/ConfigList.vue'), meta: { title: '系统配置' } },
+      { path: 'config', name: 'ConfigList', component: () => import('@/views/system/configList/index.vue'), meta: { title: '系统配置' } },
       { path: 'org', name: 'OrgList', component: () => import('@/views/system/OrgList.vue'), meta: { title: '组织机构' } }
     ]
   },
