@@ -1,14 +1,14 @@
 <template>
-  <div class="app-container">
-    <CommonSearch :model="query" @search="loadData" @reset="reset">
-      <el-form-item label="参数名称">
-        <el-input v-model="query.name" placeholder="请输入参数名称" />
-      </el-form-item>
-      <el-form-item label="参数键名">
-        <el-input v-model="query.key" placeholder="请输入参数键名" />
-      </el-form-item>
-    </CommonSearch>
+  <CommonSearch :model="query" @search="loadData" @reset="reset">
+    <el-form-item label="参数名称">
+      <el-input v-model="query.name" placeholder="请输入参数名称" />
+    </el-form-item>
+    <el-form-item label="参数键名">
+      <el-input v-model="query.key" placeholder="请输入参数键名" />
+    </el-form-item>
+  </CommonSearch>
 
+  <div class="app-container">
     <CommonTable :data="list" :pagination="pagination" @update:pageNum="onPageChange">
       <el-table-column prop="id" label="ID" width="80" />
       <el-table-column prop="name" label="参数名称" />

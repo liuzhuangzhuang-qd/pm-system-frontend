@@ -10,7 +10,7 @@
     <el-dropdown>
       <span class="user-info">
         <el-icon><User /></el-icon>
-        <span class="name">{{ userStore.userInfo?.nickname || '未登录' }}</span>
+        <span class="name">{{ displayName }}</span>
       </span>
       <template #dropdown>
         <el-dropdown-menu>
@@ -32,6 +32,11 @@ const userStore = useUserStore()
 const router = useRouter()
 
 const collapsed = computed(() => appStore.sidebarCollapsed)
+
+const displayName = computed(() => {
+  const u = userStore.userInfo
+  return u?.realName || u?.nickname || u?.username || '未登录'
+})
 
 const toggle = () => {
   appStore.toggleSidebar()
